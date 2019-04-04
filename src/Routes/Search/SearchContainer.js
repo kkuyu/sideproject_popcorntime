@@ -33,12 +33,13 @@ export default class extends React.Component{
 	};
 
 	render(){
-		const { error, loading, movieResults, tvResults } = this.state;
+		const { movieResults, tvResults, loading, error, searchTerm } = this.state;
 		return <SearchPresenter 
 			movieResults={ movieResults }
 			tvResults={ tvResults }
-			error={ error }
 			loading={ loading }
+			error={ error }
+			searchTerm={searchTerm}
 			handleSubmit={this.handleSubmit}
 		/>
 	}
