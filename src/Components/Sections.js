@@ -11,7 +11,10 @@ const Container = styled.div`
 		font-weight: 600;
 	}
 	.grid {
-		margin-top: 25px
+		margin-top: 25px;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, 125px);
+		grid-gap: 25px;
 	}
 `;
 
