@@ -7,7 +7,7 @@ import Poster from "Components/Poster";
 import Message from "Components/Message";
 
 const Container = styled.div`
-	padding: 0 20px;
+	padding: 20px;
 `;
 
 const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (

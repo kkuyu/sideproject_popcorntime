@@ -7,9 +7,9 @@ import Poster from "Components/Poster";
 import Message from "Components/Message";
 
 const Container = styled.div`
-	padding: 0 20px;
+	padding: 20px;
 	form {
-		margin-bottom: 50px;
+		margin-bottom: 30px;
 		width: 100%;
 	}
 	input {
