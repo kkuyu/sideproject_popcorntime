@@ -11,7 +11,11 @@ const Container = styled.div`
 	}
 `;
 
-const Message = ({ text, color }) => <Container><span className="text" color={color}>{text}</span></Container>;
+const Message = ({ text, color }) => (
+	<Container>
+		<span className="text" color={color}>{text}</span>
+	</Container>
+);
 
 Message.propTypes = {
 	text: PropTypes.string.isRequired,
