@@ -39,10 +39,11 @@ export default class extends React.Component{
 	}
 
 	render() {
-		const { result, loading, error } = this.state;
+		const { result, loading, isMovie, error } = this.state;
 		return <DetailPresenter
 			result={ result }
 			loading={ loading }
+			isMovie={ isMovie }
 			error={ error }
 		/>
 	}
