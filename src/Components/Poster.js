@@ -49,7 +49,7 @@ const Image = styled.div`
 const SLink = styled(Link)``;
 
 const Poster = ({ id, imageUrl, title, rating, year, isMovie=false }) => (
-	<SLink to={ isMovie ? `/movie/${id}` : `/show/${id}`}>
+	<SLink to={ isMovie ? `/movie/${id}` : `/tv/${id}`}>
 		<Container>
 			<div className="iamge-container">
 				<Image className="image" bgUrl={ imageUrl ? `https://image.tmdb.org/t/p/w300${imageUrl}` : require("../assets/noPosterSmall.png") } />
