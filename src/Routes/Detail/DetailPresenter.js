@@ -99,7 +99,7 @@ const DetailPresenter = ({ result, loading, isMovie=true, error }) => (
 			<div className="contnet">
 				<Cover className="cover" bgUrl={result.poster_path ? `https://image.tmdb.org/t/p/original${result.poster_path}` : require("../../assets/noPosterSmall.png")} />
 				<div className="data">
-					<h3 className="title">{result.original_title ? result.original_title : result.original_name}</h3>
+					<h3 className="title">{isMovie ? result.original_title : result.original_name}</h3>
 					<div className="infoContainer">
 						<span className="info">{isMovie ? (result.release_date && result.release_date.substring(0,4)) : (result.first_air_date && result.first_air_date.substring(0,4))}</span>
 						<span className="info">{isMovie ? result.runtime : (result.episode_run_time && result.episode_run_time[0])} min</span>

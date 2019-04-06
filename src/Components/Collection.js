@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-	width: 50%;
 	margin-bottom: 20px;
 	.title {
 		width: 100%;
