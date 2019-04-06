@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import Loader from "Components/Loader";
-import { request } from "https";
 
 const Container = styled.div`
 	position: relative;
@@ -22,6 +21,32 @@ const Container = styled.div`
 		border-radius: 5px;
 		background-size: cover;
 		background-position: center center;
+	}
+	.data {
+		width: 70%;
+		margin-left: 10px;
+		.title {
+			font-size: 32px;
+		}
+		.itemContainer {
+			margin: 20px 0;
+		}
+		.item {
+			&:not(:last-child):after {
+				content:"";
+				display: inline-block;
+				width: 2px;
+				height: 2px;
+				margin: 5px 10px 0;
+				background: #fff;
+				vertical-align: top;
+			}
+		}
+		.overview {
+			font-size: 12px;
+			line-height: 1.5;
+			opacity: 0.7;
+		}
 	}
 	.backDrop {
 		position: absolute;
@@ -51,6 +76,15 @@ const DetailPresenter = ({ result, loading, error }) => (
 			<BackDrop className="backDrop" bgUrl={`https://image.tmdb.org/t/p/original${result.backdrop_path}`} />
 			<div className="contnet">
 				<Cover className="cover" bgUrl={result.poster_path ? `https://image.tmdb.org/t/p/original${result.poster_path}` : require("../../assets/noPosterSmall.png")} />
+				<div className="data">
+					<h3 className="title">{result.original_title ? result.original_title : result.original_name}</h3>
+					<div className="itemContainer">
+						<span className="item">{result.release_date ? result.release_date.substring(0,4) : result.first_air_date.substring(0,4)}</span>
+						<span className="item">{result.runtime ? result.runtime : result.episode_run_time[0]} min</span>
+						<span className="item">{result.genres && result.genres.map((genre, index) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)}</span>
+					</div>
+					<p className="overview">{result.overview}</p>
+				</div>
 			</div>
 		</Container>
 	)
