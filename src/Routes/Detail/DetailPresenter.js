@@ -6,6 +6,7 @@ import Loader from "Components/Loader";
 
 import Collection from "Components/Collection";
 import Season from "Components/Season";
+import Videos from "Components/Videos";
 
 const Container = styled.div`
 	position: relative;
@@ -62,8 +63,6 @@ const Container = styled.div`
 			line-height: 1.5;
 			opacity: 0.7;
 		}
-		.videoclipContainer {}
-		.videoclip {}
 	}
 	.backDrop {
 		position: absolute;
@@ -116,9 +115,7 @@ const DetailPresenter = ({ result, loading, isMovie=true, error }) => (
 						{result.homepage && <span className="info"><Link className="link" href={result.homepage} target="_blank" bgcolor="#ff8d00">homepage</Link></span> }
 					</div>
 					<p className="overview">{result.overview}</p>
-					<div className="videoclipContainer">
-						<iframe className="videoclip"></iframe>
-					</div>
+
 					{result.belongs_to_collection && result.belongs_to_collection.length > 0 && (<>
 						<h4 className="subTitle">Collection</h4>
 						<Collection
@@ -133,6 +130,13 @@ const DetailPresenter = ({ result, loading, isMovie=true, error }) => (
 						<Season
 							id={result.id}
 							seasons={result.seasons}
+						/>
+					</>)}
+
+					{result.videos && result.videos.results.length > 0 && (<>
+						<h4 className="subTitle">Videos</h4>
+						<Videos
+							videos={result.videos.results}
 						/>
 					</>)}
 				</div>
