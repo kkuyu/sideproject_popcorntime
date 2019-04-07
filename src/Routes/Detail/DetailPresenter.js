@@ -7,6 +7,7 @@ import Loader from "Components/Loader";
 import Collection from "Components/Collection";
 import Season from "Components/Season";
 import Videos from "Components/Videos";
+import Production from "Components/Production";
 
 const Container = styled.div`
 	position: relative;
@@ -137,6 +138,14 @@ const DetailPresenter = ({ result, loading, isMovie=true, error }) => (
 						<h4 className="subTitle">Videos</h4>
 						<Videos
 							videos={result.videos.results}
+						/>
+					</>)}
+
+					
+					{result.production_companies && (<>
+						<h4 className="subTitle">Production Companies</h4>
+						<Production
+							companies={result.production_companies}
 						/>
 					</>)}
 				</div>
