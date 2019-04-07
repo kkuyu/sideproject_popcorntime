@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 
 import Collection from "Components/Collection";
+import Season from "Components/Season";
 
 const Container = styled.div`
 	position: relative;
@@ -30,6 +31,12 @@ const Container = styled.div`
 		margin-left: 10px;
 		.title {
 			font-size: 32px;
+		}
+		.subTitle {
+			width: 100%;
+			font-size: 20px;
+			font-weight: 300;
+			margin-bottom: 20px;
 		}
 		.infoContainer {
 			margin: 20px 0;
@@ -112,13 +119,22 @@ const DetailPresenter = ({ result, loading, isMovie=true, error }) => (
 					<div className="videoclipContainer">
 						<iframe className="videoclip"></iframe>
 					</div>
-					{result.belongs_to_collection && (
+					{result.belongs_to_collection && result.belongs_to_collection.length > 0 && (<>
+						<h4 className="subTitle">Collection</h4>
 						<Collection
 							id={result.belongs_to_collection.id}
 							title={result.belongs_to_collection.name}
 							imageUrl={result.belongs_to_collection.poster_path}
 						/>
-					)}
+					</>)}
+
+					{result.seasons && result.seasons.length > 0 && (<>
+						<h4 className="subTitle">Season</h4>
+						<Season
+							id={result.id}
+							seasons={result.seasons}
+						/>
+					</>)}
 				</div>
 			</div>
 		</Container>

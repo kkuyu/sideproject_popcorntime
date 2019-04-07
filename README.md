@@ -17,15 +17,15 @@ Learning React and ES6 by building a Movie Discovery App.
 - [X] Airing Today (TV)
 - [X] TV Show Detail
 - [X] Movie Detail
-- [ ] Search (TV, Movie)
+- [X] Search (TV, Movie)
 
 ## Code Challenges
 
-- [ ] IMDB Link
+- [X] IMDB Link
 - [ ] Tabs inside of Movie / Show Details (YT Videos, Production Company & Countries)
-- [ ] Collections Link
-- [ ] /collections Route
-- [ ] On TV Show, show seasons and creators
+- [X] Collections Link
+- [X] collections Route
+- [X] On TV Show, show seasons and creators
 
 # Preview:
 Try it on [github page](https://kkuyu.github.io/)

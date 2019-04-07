@@ -28,11 +28,12 @@ export const tvApi = {
 	topRated: () => api.get("tv/top_rated"),
 	popular: () => api.get("tv/popular"),
 	airingToday: () => api.get("tv/airing_today"),
-	showDetail: (id) => api.get(`tv/${id}`, {
+	tvDetail: (id) => api.get(`tv/${id}`, {
 		params: {
 			append_to_response: "videos"
 		}
 	}),
+	seasonDetail: (id, seasonNumber) => api.get(`tv/${id}/season/${seasonNumber}`),
 	search: (term) => api.get("search/tv", {
 		params: {
 			query: encodeURIComponent(term)

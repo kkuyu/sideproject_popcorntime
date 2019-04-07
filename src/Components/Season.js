@@ -28,21 +28,22 @@ const ThumImage = styled.div`
 
 const SLink = styled(Link)``;
 
-const Collection = ({ id, title, imageUrl }) => (
+const Season = ({ id, seasons }) => (
 	<Container>
-		<SLink to={`/collection/${id}`}>
-			<div className="imageContainer">
-				<ThumImage className="thumImage" imageUrl={ imageUrl ? `https://image.tmdb.org/t/p/w300${imageUrl}` : require("../assets/noPosterSmall.png") } />
-				<span className="name">{title}</span>
-			</div>
-		</SLink>
+		{seasons.map((season, index) => (
+			<SLink to={`/tv/${id}/season/${season.season_number}`} key={index}>
+				<div className="ImageContainer">
+					<ThumImage className="thumImage" imageUrl={ season.poster_path ? `https://image.tmdb.org/t/p/w300${season.poster_path}` : require("../assets/noPosterSmall.png") } />
+					<div className="name">{season.name}</div>
+				</div>
+			</SLink>
+		))}
 	</Container>
 );
 
-Collection.propTypes = {
+Season.propTypes = {
 	id: PropTypes.number,
-	title: PropTypes.string,
-	imageUrl: PropTypes.string
+	seasons: PropTypes.array
 };
 
-export default Collection;
+export default Season;
