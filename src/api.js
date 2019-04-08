@@ -19,7 +19,7 @@ export const movieApi = {
 	}),
 	search: (term) => api.get("search/movie", {
 		params: {
-			query: encodeURIComponent(term)
+			query: term
 		}
 	})
 }
@@ -36,7 +36,7 @@ export const tvApi = {
 	seasonDetail: (id, seasonNumber) => api.get(`tv/${id}/season/${seasonNumber}`),
 	search: (term) => api.get("search/tv", {
 		params: {
-			query: encodeURIComponent(term)
+			query: term
 		}
 	})
 }
