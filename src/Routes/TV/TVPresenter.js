@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
-import Section from "Components/Sections";
-import Poster from "Components/Poster";
+import MainSection from "Components/MainSection";
+import PosterList from "Components/PosterList";
 import Message from "Components/Message";
 
 const Container = styled.div`
-	padding: 20px;
 `;
 
 const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (
@@ -17,16 +16,16 @@ const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (
 			<title>TV Shows | Movieapp</title>
 		</Helmet>
 		{loading ? <Loader /> : (
-			<Container>
-				{ topRated && topRated.length > 0 && <Section title="Top Rated Shows"> { topRated.map(show => <>
-					<Poster key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
-				</>) } </Section> }
-				{ popular && popular.length > 0 && <Section title="Popular Shows"> { popular.map(show => <>
-					<Poster key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
-				</>) } </Section> }
-				{ airingToday && airingToday.length > 0 && <Section title="Airing Today"> { airingToday.map(show => <>
-					<Poster key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
-				</>) } </Section> }
+			<Container className="main-container">
+				{ topRated && topRated.length > 0 && <MainSection title="Top Rated Shows"> { topRated.map(show => <>
+					<PosterList key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
+				</>) } </MainSection> }
+				{ popular && popular.length > 0 && <MainSection title="Popular Shows"> { popular.map(show => <>
+					<PosterList key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
+				</>) } </MainSection> }
+				{ airingToday && airingToday.length > 0 && <MainSection title="Airing Today"> { airingToday.map(show => <>
+					<PosterList key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
+				</>) } </MainSection> }
 				{ error && <Message text={error} color="#e74c3c" /> }
 			</Container>
 		)}

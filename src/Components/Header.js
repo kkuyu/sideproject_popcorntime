@@ -3,52 +3,62 @@ import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = styled.header`
-	color: white;
-	position: fixed;
-	top: 0;
-	left: 0;
+	position: relative;
 	width: 100%;
-	height: 50px;
-	display: flex;
-	align-items: center;
-	background-color: rgba(20, 20, 20, 0.8);
+	padding: 40px 50px;
+	color: #fff;
 	z-index: 10;
-	box-shadow: 0px 1px 5px 2px rgba(0, 0, 0, 0.8);
-		ul.gnb {
-			display: flex;
-			li {
-				width: 80px;
-				height: 50px;
-				text-align: center;
-			}
-			a {
-				height: 50px;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+	.logo {
+		float: left;
+		font-size: 20px;
+		font-weight: 600;
+	}
+	.gnb {
+		float: left;
+		margin-left: 86px;
+		&:after {
+			content: "";
+			display: block;
+			clear: both;
 		}
+		li {
+			float: left;
+		}
+		li + li {
+			margin-left: 48px;
+		}
+		a {
+			padding: 4px 1px;
+			font-size: 15px;
+		}
+	}
 `;
 
-const Item = styled.li`
-	border-bottom: 5px solid ${props => props.current ? "#3498db" : "transparent"};
+const SLink = styled(Link)`
+	border-bottom: 1px solid ${props => props.current ? "#ecce40" : "transparent"};
 	transition: border-bottom 0.2s ease-out;
-`
-
-const SLink = styled(Link)``;
+`;
 
 export default withRouter(({ location: { pathname } }) => (
-	<Header>
+	<Header className="header">
+		<h1 className="logo">
+			<SLink to="/"><i className="fas fa-meteor" aria-label="logo"></i> POPCORN TIME</SLink>
+		</h1>
 		<ul className="gnb">
-			<Item current={ pathname === "/" || pathname.includes("/movie") || pathname.includes("/collection") }>
-				<SLink to="/">Movies</SLink>
-			</Item>
-			<Item current={ pathname.includes("/tv") || pathname.includes("/season") }>
-				<SLink to="/tv">TV</SLink>
-			</Item>
-			<Item current={ pathname === "/search" }>
-				<SLink to="/search">Search</SLink>
-			</Item>
+			<li>
+				<SLink to="/" current={ ( pathname === "/" || pathname.indexOf("/movie") !== -1 ) ? 1 : 0 }>Movies</SLink>
+			</li>
+			<li>
+				<SLink to="/tv" current={ ( pathname.indexOf("/tv") !== -1 ) ? 1 : 0 }>TV</SLink>
+			</li>
+			<li>
+				<SLink to="/search" current={ ( pathname === "/search" ) ? 1 : 0 }>Search</SLink>
+			</li>
 		</ul>
 	</Header>
 ));

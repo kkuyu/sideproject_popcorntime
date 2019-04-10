@@ -8,9 +8,10 @@ export default class extends React.Component{
 		const { location: { pathname } } = props;
 		this.state = {
 			result: null,
+			review: null,
 			error: null,
 			loading: true,
-			isMovie: pathname.includes("/movie/")
+			isMovie: ( pathname.indexOf("/movie/") !== -1 )
 		};
 	};
 
@@ -25,23 +26,28 @@ export default class extends React.Component{
 			return push("/");
 		}
 		let result = null;
+		let review = null;
 		try{
 			if (isMovie) {
 				({ data: result } = await movieApi.movieDetail(parsedId));
+				({ data: { results: review } } = await movieApi.movieReview(parsedId));
 			} else {
 				({ data: result } = await tvApi.tvDetail(parsedId));
+				({ data: { results: review } } = await tvApi.tvReview(parsedId));
 			}
 		}catch(error){
 			this.setState({ error: "Can't find anything." });
 		}finally{
-			this.setState({ loading: false, result });
+			this.setState({ loading: false, result, review });
 		}
 	}
 
 	render() {
-		const { result, loading, isMovie, error } = this.state;
+		const { result, review, loading, isMovie, error } = this.state;
+		console.log(this.state)
 		return <DetailPresenter
 			result={ result }
+			review={ review }
 			loading={ loading }
 			isMovie={ isMovie }
 			error={ error }

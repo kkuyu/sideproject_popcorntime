@@ -3,12 +3,11 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
-import Section from "Components/Sections";
-import Poster from "Components/Poster";
+import MainSection from "Components/MainSection";
+import PosterList from "Components/PosterList";
 import Message from "Components/Message";
 
 const Container = styled.div`
-	padding: 20px;
 `;
 
 const HomePresenter = ({ nowPlaying, upcoming, popular, loading, error }) => (
@@ -17,16 +16,16 @@ const HomePresenter = ({ nowPlaying, upcoming, popular, loading, error }) => (
 			<title>Movies | Movieapp</title>
 		</Helmet>
 		{loading ? <Loader /> : (
-			<Container>
-				{ nowPlaying && nowPlaying.length > 0 && <Section title="Now Playing"> { nowPlaying.map(movie => <>
-					<Poster key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
-				</>) } </Section> }
-				{ upcoming && upcoming.length > 0 && <Section title="Upcomfing Movies"> { upcoming.map(movie => <>
-					<Poster key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
-				</>) } </Section> }
-				{ popular && popular.length > 0 && <Section title="Popular Movies"> { popular.map(movie => <>
-					<Poster key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
-				</>) } </Section> }
+			<Container className="main-container">
+				{ nowPlaying && nowPlaying.length > 0 && <MainSection title="Now Playing"> { nowPlaying.map(movie => (
+					<PosterList key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
+				)) } </MainSection> }
+				{ upcoming && upcoming.length > 0 && <MainSection title="Upcomfing Movies"> { upcoming.map(movie => (
+					<PosterList key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
+				)) } </MainSection> }
+				{ popular && popular.length > 0 && <MainSection title="Popular Movies"> { popular.map(movie => (
+					<PosterList key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
+				)) } </MainSection> }
 				{ error && <Message text={error} color="#e74c3c" /> }
 			</Container>
 		)}

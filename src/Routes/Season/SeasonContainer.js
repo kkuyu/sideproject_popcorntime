@@ -5,8 +5,9 @@ import { tvApi } from "api";
 export default class extends React.Component{
 	state = {
 		result: null,
-		error: "",
-		loading: true
+		error: null,
+		loading: true,
+		backdrop: null
 	};
 
 	async componentDidMount() {
@@ -20,22 +21,25 @@ export default class extends React.Component{
 			return push("/");
 		}
 		let result = null;
+		let backdrop = null;
 		try{
 			({ data: result } = await tvApi.seasonDetail( parsedId, parsedSeasonNumber ));
+			({ data: { backdrop_path: backdrop } } = await tvApi.tvDetail(parsedId));
 		}catch(error){
 			this.setState({ error: "Can't find anything" });
 		}finally{
-			this.setState({ loading: false, result });
+			this.setState({ loading: false, result, backdrop });
 		}
 	}
 
 	render() {
-		const { result, error, loading } = this.state;
+		const { result, error, loading, backdrop } = this.state;
 		console.log(this.state)
 		return <SeasonPresenter
 			result={result}
 			error={error}
 			loading={loading}
+			backdrop={backdrop}
 		/>;
 	}
 
