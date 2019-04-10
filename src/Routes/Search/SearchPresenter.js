@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import MainSection from "Components/MainSection";
-import PosterList from "Components/PosterList";
+import MainPoster from "Components/MainPoster";
 import Message from "Components/Message";
 
 const Container = styled.div`
@@ -45,10 +45,10 @@ const SearchPresenter = ({ movieResults, tvResults, error, loading, searchTerm, 
 		</form>
 		{ loading ? <Loader /> : <>
 			{ movieResults && movieResults.length > 0 && <MainSection title="Movie Results"> { movieResults.map(movie => <>
-				<PosterList key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
+				<MainPoster key={movie.id} id={movie.id} imageUrl={movie.poster_path} title={movie.original_title} rating={movie.vote_average} year={movie.release_date && movie.release_date.substring(0,4)} isMovie={true} />
 			</>) } </MainSection> }
 			{ tvResults && tvResults.length > 0 && <MainSection title="TV Show Results"> { tvResults.map(show => <>
-				<PosterList key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
+				<MainPoster key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
 			</>) } </MainSection> }
 			{ error && <Message text={error} color="#e74c3c" /> }
 			{ movieResults && movieResults.length === 0 && tvResults && tvResults.length === 0 && <Message text="Nothing found" color="#95a5a6" /> }

@@ -28,5 +28,4 @@ Learning React and ES6 by building a Movie Discovery App.
 - [X] On TV Show, show seasons and creators
 
 # Preview:
-Try it on [github page](https://kkuyu.github.io/)
 Try it on [netlify](https://zen-mahavira-6dfe5a.netlify.com)

@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import MainSection from "Components/MainSection";
-import PosterList from "Components/PosterList";
+import MainPoster from "Components/MainPoster";
 import Message from "Components/Message";
 
 const Container = styled.div`
@@ -18,13 +18,13 @@ const TVPresenter = ({ topRated, popular, airingToday, loading, error }) => (
 		{loading ? <Loader /> : (
 			<Container className="main-container">
 				{ topRated && topRated.length > 0 && <MainSection title="Top Rated Shows"> { topRated.map(show => <>
-					<PosterList key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
+					<MainPoster key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
 				</>) } </MainSection> }
 				{ popular && popular.length > 0 && <MainSection title="Popular Shows"> { popular.map(show => <>
-					<PosterList key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
+					<MainPoster key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
 				</>) } </MainSection> }
 				{ airingToday && airingToday.length > 0 && <MainSection title="Airing Today"> { airingToday.map(show => <>
-					<PosterList key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
+					<MainPoster key={show.id} id={show.id} imageUrl={show.poster_path} title={show.original_name} rating={show.vote_average} year={show.first_air_date && show.first_air_date.substring(0,4)} />
 				</>) } </MainSection> }
 				{ error && <Message text={error} color="#e74c3c" /> }
 			</Container>

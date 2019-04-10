@@ -60,6 +60,9 @@ const globalStyles = createGlobalStyle`
 			color: #222;
 			background: #fff;
 		}
+		&.fixed.open {
+			width: 57.6%;
+		}
 		.more {
 			width: 55px;
 			padding: 5px;

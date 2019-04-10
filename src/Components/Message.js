@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Message = ({ text, color }) => (
-	<Container>
+	<Container className="message">
 		<span className="text" color={color}>{text}</span>
 	</Container>
 );

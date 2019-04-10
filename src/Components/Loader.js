@@ -42,7 +42,7 @@ const Container = styled.div`
 `;
 
 export default () => (
-	<Container aria-label="Loading">
+	<Container className="loader" aria-label="Loading">
 		<i className="fas fa-circle" aria-hidden="true"></i>
 		<i className="fas fa-circle" aria-hidden="true"></i>
 	</Container>

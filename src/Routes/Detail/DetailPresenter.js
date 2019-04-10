@@ -10,7 +10,8 @@ import Cover from "Components/Cover";
 import Star from "Components/Star";
 import Series from "Components/Series";
 import Review from "Components/Review";
-import Videos from "Components/Videos";
+
+import VideoList from "Components/VideoList";
 
 const Container = styled.div`
 	width: 70%;
@@ -28,9 +29,28 @@ const SubDetail = styled.div`
 		top: 150px;
 		right: 50px;
 	}
+	&.fixed.open .video-list {
+		& {
+			margin: 15px -20px -20px -20px;
+		}
+		&:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+		li {
+			margin-top: 0;
+			float: left;
+			width: 50%;
+			padding: 20px;
+		}
+		li:nth-child(2n+1) {
+			clear: both;
+		}
+	}
 `;
 
-const DetailPresenter = ({ result, review, loading, isMovie=true, error }) => (
+const DetailPresenter = ({ result, review, loading, isMovie=true, handleClick, isToggleOn, error }) => (
 	loading ? <>
 		<Helmet>
 			<title>Loading | Movieapp</title>
@@ -69,11 +89,18 @@ const DetailPresenter = ({ result, review, loading, isMovie=true, error }) => (
 				<h3 className="sub-title">Review</h3>
 				{review.length ? <Review review={review} /> : <p>No registered content.</p> }
 			</SubDetail>
+
 			
-			<SubDetail className="sub-detail fixed">
+			
+			<SubDetail className={ isToggleOn ? "sub-detail fixed" : "sub-detail fixed open"}>
 				<h3 className="sub-title">Videos</h3>
-				{result.videos.results.length ? <Videos videos={result.videos.results} max="2" /> : <p>No registered content.</p> }
-				{result.videos.results.length > 2 && <button className="more">More</button> }
+
+				{result.videos.results.length && <>
+					<VideoList videos={result.videos.results} max={ isToggleOn ? 2 : result.videos.results.length } />
+					<button className="more" onClick={handleClick}>{ isToggleOn ? 'More' : 'Close' }</button>
+				</> }
+
+				{!result.videos.results.length && <p>No registered content.</p>}
 			</SubDetail>
 
 			<BackDrop className="backdrop" bgurl={result.backdrop_path} />
@@ -86,6 +113,8 @@ DetailPresenter.propTypes = {
 	review: PropTypes.array,
 	loading: PropTypes.bool.isRequired,
 	isMovie: PropTypes.bool.isRequired,
+	handleClick: PropTypes.func,
+	isToggleOn: PropTypes.bool,
 	error: PropTypes.string
 };
 

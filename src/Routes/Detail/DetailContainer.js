@@ -11,9 +11,17 @@ export default class extends React.Component{
 			review: null,
 			error: null,
 			loading: true,
-			isMovie: ( pathname.indexOf("/movie/") !== -1 )
+			isMovie: ( pathname.indexOf("/movie/") !== -1 ),
+			isToggleOn: true
 		};
+		this.handleClick = this.handleClick.bind(this);
 	};
+
+	handleClick = (event) => {
+	  this.setState(prevState => ({
+		isToggleOn: !prevState.isToggleOn
+	  }));
+	}
 
 	async componentDidMount(){
 		const {
@@ -25,6 +33,7 @@ export default class extends React.Component{
 		if(isNaN(parsedId)){
 			return push("/");
 		}
+		let detailId = parsedId;
 		let result = null;
 		let review = null;
 		try{
@@ -38,18 +47,20 @@ export default class extends React.Component{
 		}catch(error){
 			this.setState({ error: "Can't find anything." });
 		}finally{
-			this.setState({ loading: false, result, review });
+			this.setState({ loading: false, result, review, detailId });
 		}
 	}
 
 	render() {
-		const { result, review, loading, isMovie, error } = this.state;
+		const { result, review, loading, isMovie, isToggleOn, error } = this.state;
 		console.log(this.state)
 		return <DetailPresenter
 			result={ result }
 			review={ review }
 			loading={ loading }
 			isMovie={ isMovie }
+			handleClick={ this.handleClick }
+			isToggleOn={ isToggleOn }
 			error={ error }
 		/>
 	}

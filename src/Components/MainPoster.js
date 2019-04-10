@@ -58,7 +58,7 @@ const SLink = styled(Link)`
 	}
 `;
 
-const PosterList = ({ id, imageUrl, title, rating, year, isMovie=false }) => (
+const MainPoster = ({ id, imageUrl, title, rating, year, isMovie=false }) => (
 	<SLink to={ isMovie ? `/movie/${id}` : `/tv/${id}`}>
 		<div className="thum">
 			<Cover url={imageUrl ? `https://image.tmdb.org/t/p/w342${imageUrl}` : require("../assets/noPoster_780.jpg")} alt="" />
@@ -71,7 +71,7 @@ const PosterList = ({ id, imageUrl, title, rating, year, isMovie=false }) => (
 	</SLink>
 )
 
-PosterList.prototype = {
+MainPoster.prototype = {
 	id: PropTypes.number.isRequired,
 	imageUrl: PropTypes.string,
 	title: PropTypes.string.isRequired,
@@ -80,4 +80,4 @@ PosterList.prototype = {
 	isMovie: PropTypes.bool
 }
 
-export default PosterList;
+export default MainPoster;

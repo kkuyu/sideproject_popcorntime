@@ -43,8 +43,8 @@ const Container = styled.ul`
 `;
 
 
-const Videos = ({ max, videos }) => (
-	<Container className="VideoContainer">
+const VideoList = ({ max, videos }) => (
+	<Container className="video-list">
 		{videos.map((video, index) => ( index < ( max ? max : videos.length ) && <>
 			<li key={index}>
 				<div className="video">
@@ -56,9 +56,9 @@ const Videos = ({ max, videos }) => (
 	</Container>
 );
 
-Videos.propTypes = {
-	max: PropTypes.string,	
+VideoList.propTypes = {
+	max: PropTypes.number,	
 	videos: PropTypes.array
 };
 
-export default Videos;
+export default VideoList;
