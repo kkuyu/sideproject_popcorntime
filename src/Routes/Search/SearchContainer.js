@@ -3,13 +3,17 @@ import SearchPresenter from "./SearchPresenter";
 import { movieApi, tvApi } from "api";
 
 export default class extends React.Component{
-	state = {
-		movieResults: null,
-		tvResults: null,
-		searchTerm: "",
-		error: null,
-		loading: false
-	}
+	constructor(props){
+		super(props);
+		const { location: { hash } } = props;
+		this.state = {
+			movieResults: null,
+			tvResults: null,
+			searchTerm: ( hash ? hash.substring(1) : ""),
+			error: null,
+			loading: false
+		}
+	};
 
 	handleSubmit = (event) => {
 		event.preventDefault();
@@ -29,6 +33,7 @@ export default class extends React.Component{
 		} catch {
 			this.setState({ error: "Can't find results." });
 		} finally {
+			window.location.hash = searchTerm;
 			this.setState({ loading: false });
 		}
 	};
@@ -39,9 +44,16 @@ export default class extends React.Component{
 			searchTerm: value
 		})
 	}
+	
+	async componentDidMount(){
+		const { searchTerm } = this.state;
+		if (searchTerm !== "") {
+			this.searchByTerm();
+		}
+	}
 
 	render(){
-		const { movieResults, tvResults, loading, error, searchTerm, updateTerm } = this.state;
+		const { movieResults, tvResults, loading, error, searchTerm } = this.state;
 		return <SearchPresenter 
 			movieResults={ movieResults }
 			tvResults={ tvResults }
