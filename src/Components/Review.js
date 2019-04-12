@@ -8,6 +8,7 @@ const Container = styled.ul`
 		position: relative;
 		padding-left: 50px;
 		font-size: 15px;
+		line-height: 1.2;
 		i {
 			position: absolute;
 			top: 0;

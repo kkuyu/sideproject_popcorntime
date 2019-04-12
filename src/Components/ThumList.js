@@ -18,15 +18,20 @@ const Container = styled.ul`
 	}
 	.thum {
 		float:left;
-		width: 100px;
+		width: 110px;
 	}
 	.info {
 		float: left;
-		width: calc(100% - 100px);
+		width: calc(100% - 110px);
 		padding-left: 20px;
 	}
 	.name {
 		font-size: 16px;
+		font-weight: 600;
+	}
+	.star {
+		display: block;
+		margin-top: 10px;
 	}
 	.overview {
 		margin-top: 10px;
@@ -55,6 +60,7 @@ const ThumList = ({ result, isMovie  }) => (
 					</div>
 					<div className="info">
 						<strong className="name">{part.title} <em className="year">{part.release_date && `(${part.release_date.substr(0, 4)})`}</em></strong>
+					<Star average={part.vote_average} averageFloor={Math.floor(part.vote_average)} />
 						<p className="overview">{part.overview.length > 350 ? `${part.overview.substr(0, 350)}...` : part.overview}</p>
 					</div>
 				</SLink>
@@ -68,6 +74,7 @@ const ThumList = ({ result, isMovie  }) => (
 				</div>
 				<div className="info">
 					<strong className="name">{episode.episode_number}. {episode.name} <em className="year">{episode.air_date && `(${episode.air_date.substr(0, 4)})`}</em></strong>
+					<Star average={episode.vote_average} averageFloor={Math.floor(episode.vote_average)} />
 					<p className="overview">{episode.overview.length > 350 ? `${episode.overview.substr(0, 350)}...` : episode.overview}</p>
 				</div>
 			</li>

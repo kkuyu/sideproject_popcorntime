@@ -10,13 +10,20 @@ import Cover from "Components/Cover";
 import Star from "Components/Star";
 import Series from "Components/Series";
 import Review from "Components/Review";
-
 import VideoList from "Components/VideoList";
 
 const Container = styled.div`
-	width: 70%;
-	.backdrop {
-		width: 70%;
+	.more {
+		position: absolute;
+		top: 168px;
+		right: 50px;
+		padding-bottom: 1px;
+		border-bottom: 1px solid transparent;
+		cursor: pointer;
+		&:hover {
+			font-weight: 600;
+			border-color: #ecce40;
+		}
 	}
 `;
 
@@ -24,30 +31,6 @@ const MainDetail = styled.div`
 `;
 
 const SubDetail = styled.div`
-	.more {
-		position: absolute;
-		top: 150px;
-		right: 50px;
-	}
-	&.fixed.open .video-list {
-		& {
-			margin: 15px -20px -20px -20px;
-		}
-		&:after {
-			content: "";
-			display: block;
-			clear: both;
-		}
-		li {
-			margin-top: 0;
-			float: left;
-			width: 50%;
-			padding: 20px;
-		}
-		li:nth-child(2n+1) {
-			clear: both;
-		}
-	}
 `;
 
 const DetailPresenter = ({ result, review, loading, isMovie=true, handleClick, isToggleOn, error }) => (
@@ -56,12 +39,11 @@ const DetailPresenter = ({ result, review, loading, isMovie=true, handleClick, i
 			<title>Loading | Movieapp</title>
 		</Helmet>
 		<Loader />
-		</> : (
-		<Container className="sub-container" isMovie={isMovie}>
-			<Helmet>
-				<title>{isMovie ? result.original_title : result.original_name} | Movieapp</title>
-			</Helmet>
-
+	</> : <>
+		<Helmet>
+			<title>{isMovie ? result.original_title : result.original_name} | Movieapp</title>
+		</Helmet>
+		<Container className="sub-container column-left">
 			<MainDetail className="main-detail">
 				<Cover url={result.poster_path ? `https://image.tmdb.org/t/p/w342${result.poster_path}` : require("../../assets/noPoster_780.jpg")} alt={isMovie ? result.original_title : result.original_name} />
 				<h2 className="main-title">{isMovie ? result.original_title : result.original_name}</h2>
@@ -77,7 +59,6 @@ const DetailPresenter = ({ result, review, loading, isMovie=true, handleClick, i
 					{ result.overview && <p className="story">{result.overview}</p> }
 				</div>
 			</MainDetail>
-			
 			<SubDetail className="sub-detail">
 				{isMovie ? (<>
 					<h3 className="sub-title">Collection</h3>
@@ -86,26 +67,18 @@ const DetailPresenter = ({ result, review, loading, isMovie=true, handleClick, i
 					<h3 className="sub-title">Season</h3>
 					{ result.seasons.length ? <Series seasons={result.seasons} tvId={result.id} isMovie={isMovie} /> : <p>No registered content.</p> }
 				</>)}
+
 				<h3 className="sub-title">Review</h3>
 				{review.length ? <Review review={review} /> : <p>No registered content.</p> }
 			</SubDetail>
-
-			
-			
-			<SubDetail className={ isToggleOn ? "sub-detail fixed" : "sub-detail fixed open"}>
-				<h3 className="sub-title">Videos</h3>
-
-				{result.videos.results.length && <>
-					<VideoList videos={result.videos.results} max={ isToggleOn ? 2 : result.videos.results.length } />
-					<button className="more" onClick={handleClick}>{ isToggleOn ? 'More' : 'Close' }</button>
-				</> }
-
-				{!result.videos.results.length && <p>No registered content.</p>}
-			</SubDetail>
-
-			<BackDrop className="backdrop" bgurl={result.backdrop_path} />
 		</Container>
-	)
+		<Container className={ isToggleOn ? "sub-container column-right" : "sub-container column-right__open" }>
+			<h3 className="sub-title">Videos</h3>
+			{result.videos.results.length ? <VideoList videos={result.videos.results} isToggleOn={isToggleOn} /> : <p>No registered content.</p>}
+			{result.videos.results.length > 2 && <button className="more" onClick={handleClick}>{ isToggleOn ? 'More' : 'Close' }</button>}
+		</Container>
+		<BackDrop className="backdrop" bgurl={result.backdrop_path} />
+	</>
 );
 
 DetailPresenter.propTypes = {

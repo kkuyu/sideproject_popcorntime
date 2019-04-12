@@ -18,9 +18,18 @@ export default class extends React.Component{
 	};
 
 	handleClick = (event) => {
-	  this.setState(prevState => ({
-		isToggleOn: !prevState.isToggleOn
-	  }));
+		event.preventDefault();
+		this.setState((prevState) => {
+			return {  isToggleOn: !prevState.isToggleOn }
+		}, this.bodyStyle());
+	}
+
+	bodyStyle = () => {
+		if(this.state.isToggleOn){
+			document.body.style.overflow = "hidden";
+		}else{
+			document.body.style.overflow = "visible";
+		}
 	}
 
 	async componentDidMount(){

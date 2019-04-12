@@ -21,31 +21,30 @@ const SubDetail = styled.div `
 	}
 `;
 
-const SeasonPresenter = ({ result, error, loading, backdrop }) =>
+const SeasonPresenter = ({ result, error, loading, backdrop }) => (
 	loading ? <>
-	<Helmet>
-		<title>Loading | Movieapp</title>
-	</Helmet>
-	<Loader />
-	</> : (
-	<Container className="sub-container">
+		<Helmet>
+			<title>Loading | Movieapp</title>
+		</Helmet>
+		<Loader />
+	</> : <>
 		<Helmet>
 			<title>Season | Movieapp</title>
 		</Helmet>
+		<Container className="sub-container">
+			<MainDetail className="main-detail">
+				<Cover className="cover" url={result.poster_path ? `https://image.tmdb.org/t/p/w342${result.poster_path}` : require("../../assets/noPoster_780.jpg")} alt={result.name} />
+				<h2 className="main-title">{result.name}</h2>
+				{ result.overview && <div className="overview"><p className="story">{result.overview}</p></div> }
+			</MainDetail>
 
-		<MainDetail className="main-detail">
-			<Cover className="cover" url={result.poster_path ? `https://image.tmdb.org/t/p/w342${result.poster_path}` : require("../../assets/noPoster_780.jpg")} alt={result.name} />
-			<h2 className="main-title">{result.name}</h2>
-			{ result.overview && <div className="overview"><p className="story">{result.overview}</p></div> }
-		</MainDetail>
-
-		<SubDetail className="sub-detail">
-			<h3 className="sub-title">Parts</h3>
-			<ThumList result={result} />
-		</SubDetail>
-
+			<SubDetail className="sub-detail">
+				<h3 className="sub-title">Parts</h3>
+				<ThumList result={result} />
+			</SubDetail>
+		</Container>
 		<BackDrop className="backdrop" bgurl={backdrop} />
-	</Container>
+	</>
 );
 
 export default SeasonPresenter;

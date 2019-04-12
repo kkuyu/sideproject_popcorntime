@@ -11,7 +11,7 @@ const Container = styled.div`
 		display: inline-block;
 		margin-right: 10px;
 		width: 100px;
-		height: 150px;
+		vertical-align: middle;
 		overflow: hidden;
 		border: 3px solid transparent;
 		border-radius: 10px;

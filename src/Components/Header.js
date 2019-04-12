@@ -7,7 +7,6 @@ const Header = styled.header`
 	width: 100%;
 	padding: 40px 50px;
 	color: #fff;
-	z-index: 10;
 	&:after {
 		content: "";
 		display: block;

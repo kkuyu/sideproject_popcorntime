@@ -4,61 +4,57 @@ import styled from "styled-components";
 
 const Container = styled.ul`
 	li + li {
-		margin-top: 30px;
+		margin-top: 20px;
 	}
-	.video {
-		position: relative;
-		width: 100%;
-		&:before {
-			content: "";
-			display: block;
-			width: 100%;
-			padding-bottom: 55.5%;
-			background: #3c3c3c;
+	&.half {
+		margin-left: -10px;
+		margin-right: -10px;
+		li {
+			float: left;
+			width: 50%;
+			padding: 0 10px;
 		}
-		iframe {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
+		li:nth-child(2) {
+			margin-top: 0;
+		}
+		li:nth-child(2n+1) {
+			clear: both;
 		}
 	}
 	.name {
-		position: relative;
-		padding: 10px 0 10px 24px;
+		margin-top: 10px;
+		padding-left: 22px;
+		text-indent: -11px;
 		line-height: 1.2;
 		i {
-			position: absolute;
-			top: 8px;
-			left: 0;
-			font-size: 18px;
+			font-size: 15px;
+			padding-right: 4px;
 		}
-		&:hover {
-			i {
-				color: #ff0000;
-			}
+	}
+	.name:hover {
+		text-decoration: underline;
+		i {
+			color: #ff0000;
 		}
 	}
 `;
 
-
-const VideoList = ({ max, videos }) => (
-	<Container className="video-list">
-		{videos.map((video, index) => ( index < ( max ? max : videos.length ) && <>
-			<li key={index}>
+const VideoList = ({ videos, isToggleOn }) => (
+	<Container className={ isToggleOn ? "video-list" : "video-list half"}>
+		{videos.map((video, index) => ( index < ( isToggleOn ? 2 : videos.length ) && <>
+			<li>
 				<div className="video">
 					<iframe src={`https://www.youtube.com/embed/${video.key}`} controls allowFullScreen />
 				</div>
-				<a className="name" href={`https://www.youtube.com/watch?v=${video.key}`} target="_blank"><i className="fab fa-youtube"></i> {video.name}</a>
+				<a className="name" href={`https://www.youtube.com/watch?v=${video.key}`} target="_blank"><i className="fab fa-youtube"></i>{video.name}</a>
 			</li>
 		</>))}
 	</Container>
 );
 
 VideoList.propTypes = {
-	max: PropTypes.number,	
-	videos: PropTypes.array
+	videos: PropTypes.array,
+	isToggleOn: PropTypes.bool
 };
 
 export default VideoList;
