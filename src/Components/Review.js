@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import styled from  "styled-components";
 
 const Container = styled.ul`
@@ -9,14 +8,20 @@ const Container = styled.ul`
 		padding-left: 50px;
 		font-size: 15px;
 		line-height: 1.2;
-		i {
+		.fa-user-circle {
 			position: absolute;
 			top: 0;
 			left: 0;
 			font-size: 30px;
 		}
-		a:hover .author {
+		.link {
+			display: inline-block;
+			margin-left: 5px;
+			font-size: 12px;
 			text-decoration: underline;
+			&:hover {
+				color: #ecce40;
+			}
 		}
 	}
 	li + li {
@@ -29,15 +34,16 @@ const Container = styled.ul`
 
 const Review = ({ review  }) => (
 	<Container>
-		{review.map( (review, index) => (index < 3 && <>
-			<li>
-				<a href={review.url} target="_blank">
-					<i className="fas fa-user-circle"></i>
-					<strong className="author">{review.author}</strong>
-					<p className="content">{review.content.length > 400 ? `${review.content.substring(0,400)}...` : review.content }</p>
-				</a>
+		{review.map( (review, index) => (index < 3 && 
+			<li key={index}>
+				<i className="fas fa-user-circle"></i>
+				<strong className="author">{review.author}</strong>
+				<p className="content">{review.content.length > 400 ? <>
+					{review.content.substring(0,400)}...
+					<a href={review.url} target="_blank" className="link" rel="noopener noreferrer">More</a>
+				</> : review.content }</p>
 			</li>
-		</>))}
+		))}
 	</Container>
 )
 

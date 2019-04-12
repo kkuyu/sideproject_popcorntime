@@ -41,14 +41,14 @@ const Container = styled.ul`
 
 const VideoList = ({ videos, isToggleOn }) => (
 	<Container className={ isToggleOn ? "video-list" : "video-list half"}>
-		{videos.map((video, index) => ( index < ( isToggleOn ? 2 : videos.length ) && <>
-			<li>
+		{videos.map((video, index) => ( index < ( isToggleOn ? 2 : videos.length ) && 
+			<li key={index}>
 				<div className="video">
-					<iframe src={`https://www.youtube.com/embed/${video.key}`} controls allowFullScreen />
+					<iframe src={`https://www.youtube.com/embed/${video.key}`} title={video.name} controls allowFullScreen />
 				</div>
-				<a className="name" href={`https://www.youtube.com/watch?v=${video.key}`} target="_blank"><i className="fab fa-youtube"></i>{video.name}</a>
+				<a className="name" href={`https://www.youtube.com/watch?v=${video.key}`} target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i>{video.name}</a>
 			</li>
-		</>))}
+		))}
 	</Container>
 );
 

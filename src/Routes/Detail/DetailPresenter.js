@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
@@ -51,8 +50,8 @@ const DetailPresenter = ({ result, review, loading, isMovie=true, handleClick, i
 					<Star average={result.vote_average} averageFloor={Math.floor(result.vote_average)} />
 					<span className="date">{isMovie ? (result.release_date && result.release_date.substring(0,4)) : (result.first_air_date && result.first_air_date.substring(0,4))}</span>
 					<span className="time">{isMovie ? result.runtime : (result.episode_run_time && result.episode_run_time[0])} min</span>
-					{result.imdb_id && <span className="link"><a href={`https://www.imdb.com/title/${result.imdb_id}`} target="_blank">imdb</a></span> }
-					{result.homepage && <span className="link"><a href={result.homepage} target="_blank">homepage</a></span> }
+					{result.imdb_id && <span className="link"><a href={`https://www.imdb.com/title/${result.imdb_id}`} target="_blank" rel="noopener noreferrer">imdb</a></span> }
+					{result.homepage && <span className="link"><a href={result.homepage} target="_blank" rel="noopener noreferrer">homepage</a></span> }
 				</div>
 				<div className="overview">
 					{ result.genres && <span className="genre">{result.genres.map((genre, index) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)}</span> }

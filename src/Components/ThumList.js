@@ -52,8 +52,8 @@ const SLink = styled(Link)`
 
 const ThumList = ({ result, isMovie  }) => (
 	<Container className="thum-list">
-		{ result.parts && result.parts.length > 0 && result.parts.map((part, index) => <>
-			<li>
+		{ result.parts && result.parts.length > 0 && result.parts.map((part, index) =>
+			<li key={index}>
 				<SLink to={`/movie/${part.id}`}>
 					<div className="thum">
 						<Cover url={part.poster_path ? `https://image.tmdb.org/t/p/w342${part.poster_path}` : require("../assets/noPoster_300.jpg")} alt={part.title} />
@@ -65,10 +65,10 @@ const ThumList = ({ result, isMovie  }) => (
 					</div>
 				</SLink>
 			</li>
-		</>)}
+		)}
 
-		{result.episodes && result.episodes.length > 0 && result.episodes.map((episode, index) => <>
-			<li>
+		{result.episodes && result.episodes.length > 0 && result.episodes.map((episode, index) =>
+			<li key={index}>
 				<div className="thum">
 					<Cover url={episode.still_path ? `https://image.tmdb.org/t/p/w342${episode.still_path}` : require("../assets/noPicture_300.jpg")} alt={episode.name} />
 				</div>
@@ -78,7 +78,7 @@ const ThumList = ({ result, isMovie  }) => (
 					<p className="overview">{episode.overview.length > 350 ? `${episode.overview.substr(0, 350)}...` : episode.overview}</p>
 				</div>
 			</li>
-		</>)}
+		)}
 	</Container>
 )
 
