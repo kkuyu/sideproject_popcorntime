@@ -27,8 +27,13 @@ const globalStyles = createGlobalStyle`
 		border: none;
 		background: transparent;
 	}
+
+	// container
 	.main-container {
 		padding: 20px 50px;
+		.main-cover-list {
+			margin-top: 15px;
+		}
 	}
 	.sub-container {
 		position: relative;
@@ -61,6 +66,8 @@ const globalStyles = createGlobalStyle`
 			background: rgba(0, 0, 0, 0.65);
 		}
 	}
+
+	// detail
 	.main-detail {
 		.cover {
 			position: absolute;
@@ -74,12 +81,6 @@ const globalStyles = createGlobalStyle`
 			.story {
 				font-size: 16px;
 			}
-			.genre:before {
-				content: "[ "
-			}
-			.genre:after {
-				content: " ]"
-			}
 			.genre + .story {
 				margin-top: 8px;
 			}
@@ -91,6 +92,7 @@ const globalStyles = createGlobalStyle`
 		margin-top: 85px;
 	}
 
+	// title
 	.main-title {
 		font-size: 75px;
 		font-weight: 600;
@@ -105,6 +107,8 @@ const globalStyles = createGlobalStyle`
 	* + .sub-title {
 		margin-top: 85px;
 	}
+
+	
 	.info-list {
 		a {
 			display: inline-block;
@@ -134,24 +138,6 @@ const globalStyles = createGlobalStyle`
 	}
 	* + .info-list {
 		margin-top: 20px;
-	}
-	.video {
-		position: relative;
-		width: 100%;
-		&:before {
-			content: "";
-			display: block;
-			width: 100%;
-			padding-bottom: 55.5%;
-			background: #3c3c3c;
-		}
-		iframe {
-			position: absolute;
-			top: 0;
-			left: 0;
-			width: 100%;
-			height: 100%;
-		}
 	}
 `;
 

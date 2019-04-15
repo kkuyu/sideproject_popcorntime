@@ -2,7 +2,7 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 
-const Header = styled.header`
+const Container = styled.header`
 	position: relative;
 	width: 100%;
 	padding: 40px 50px;
@@ -12,29 +12,31 @@ const Header = styled.header`
 		display: block;
 		clear: both;
 	}
-	.logo {
-		float: left;
-		font-size: 20px;
-		font-weight: 600;
+`;
+
+const Logo = styled.h1`
+	float: left;
+	font-size: 20px;
+	font-weight: 600;
+`;
+
+const Gnb = styled.ul`
+	float: left;
+	margin-left: 86px;
+	&:after {
+		content: "";
+		display: block;
+		clear: both;
 	}
-	.gnb {
+	li {
 		float: left;
-		margin-left: 86px;
-		&:after {
-			content: "";
-			display: block;
-			clear: both;
-		}
-		li {
-			float: left;
-		}
-		li + li {
-			margin-left: 48px;
-		}
-		a {
-			padding: 4px 1px;
-			font-size: 15px;
-		}
+	}
+	li + li {
+		margin-left: 48px;
+	}
+	a {
+		padding: 4px 1px;
+		font-size: 15px;
 	}
 `;
 
@@ -44,11 +46,11 @@ const SLink = styled(Link)`
 `;
 
 export default withRouter(({ location: { pathname } }) => (
-	<Header className="header">
-		<h1 className="logo">
+	<Container>
+		<Logo>
 			<SLink to="/"><i className="fas fa-meteor" aria-label="logo"></i> POPCORN TIME</SLink>
-		</h1>
-		<ul className="gnb">
+		</Logo>
+		<Gnb>
 			<li>
 				<SLink to="/" current={ ( pathname === "/" || pathname.indexOf("/movie") !== -1 ) ? 1 : 0 }>Movies</SLink>
 			</li>
@@ -58,6 +60,6 @@ export default withRouter(({ location: { pathname } }) => (
 			<li>
 				<SLink to="/search" current={ ( pathname === "/search" ) ? 1 : 0 }>Search</SLink>
 			</li>
-		</ul>
-	</Header>
+		</Gnb>
+	</Container>
 ));

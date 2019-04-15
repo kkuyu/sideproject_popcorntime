@@ -39,7 +39,7 @@ const CollectionPresenter = ({ result, loading, error }) => (
 
 			<SubDetail className="sub-detail">
 				<h3 className="sub-title">Collection</h3>
-				<ThumList result={result} isMovie={true} />
+				{ result.parts.length ? <ThumList result={result} /> : <p>No registered content.</p> }
 			</SubDetail>
 		</Container>
 		<BackDrop bgurl={result.backdrop_path} />

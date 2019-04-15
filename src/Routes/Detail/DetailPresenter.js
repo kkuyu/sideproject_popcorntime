@@ -7,7 +7,7 @@ import Loader from "Components/Loader";
 import BackDrop from "Components/BackDrop";
 import Cover from "Components/Cover";
 import Star from "Components/Star";
-import Series from "Components/Series";
+import SubCoverList from "Components/SubCoverList";
 import Review from "Components/Review";
 import VideoList from "Components/VideoList";
 
@@ -54,17 +54,17 @@ const DetailPresenter = ({ result, review, loading, isMovie=true, handleClick, i
 					{result.homepage && <span className="link"><a href={result.homepage} target="_blank" rel="noopener noreferrer">homepage</a></span> }
 				</div>
 				<div className="overview">
-					{ result.genres && <span className="genre">{result.genres.map((genre, index) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)}</span> }
+					{ result.genres && <span className="genre">[ {result.genres.map((genre, index) => index === result.genres.length - 1 ? genre.name : `${genre.name} / `)} ]</span> }
 					{ result.overview && <p className="story">{result.overview}</p> }
 				</div>
 			</MainDetail>
 			<SubDetail className="sub-detail">
 				{isMovie ? (<>
 					<h3 className="sub-title">Collection</h3>
-					{ result.belongs_to_collection ? <Series collection={result.belongs_to_collection} isMovie={isMovie} /> : <p>No registered content.</p> }
+					{ result.belongs_to_collection ? <SubCoverList collection={result.belongs_to_collection} isMovie={isMovie} /> : <p>No registered content.</p> }
 				</>) : (<>
 					<h3 className="sub-title">Season</h3>
-					{ result.seasons.length ? <Series seasons={result.seasons} tvId={result.id} isMovie={isMovie} /> : <p>No registered content.</p> }
+					{ result.seasons.length ? <SubCoverList seasons={result.seasons} tvId={result.id} isMovie={isMovie} /> : <p>No registered content.</p> }
 				</>)}
 
 				<h3 className="sub-title">Review</h3>
