@@ -31,6 +31,18 @@ const SearchForm = styled.form`
 		height: 1px;
 		background: #ecce40;
 	}
+
+	@media (max-width: 1600px) {
+		input{
+			font-size: 20px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		input{
+			font-size: 18px;
+		}
+	}
 `;
 
 const SearchPresenter = ({ movieResults, tvResults, error, loading, searchTerm, handleSubmit, updateTerm }) => (
@@ -38,11 +50,13 @@ const SearchPresenter = ({ movieResults, tvResults, error, loading, searchTerm, 
 		<Helmet>
 			<title>Search | Movieapp</title>
 		</Helmet>
-		<Container className="main-container">
+		<Container className="search-container">
 			<SearchForm onSubmit={handleSubmit}>
 				<input type="text" placeholder="Search Movie or TV Show..." value={searchTerm} onChange={updateTerm} />
 				<em className="inputLine" aria-hidden="true" />
 			</SearchForm>
+			</Container>
+		<Container className="main-container">
 			{ loading ? <Loader /> : <>
 				{ movieResults && movieResults.length > 0 && <>
 					<h2 className="sub-title">Movie Results</h2>

@@ -5,32 +5,47 @@ import styled from "styled-components";
 
 import Cover from "Components/Cover";
 
-const Container = styled.ul`
-	position: relative;
+const Container = styled.div`
+	.inner {
+		position: relative;
+		margin: -5px;
+	}
 	li {
 		display: inline-block;
-		margin-right: 10px;
+		padding: 5px;
 		width: 100px;
-		border: 3px solid transparent;
-		border-radius: 10px;
-		transition: border 0.1s ease-in-out;
 		vertical-align: middle;
-		overflow: hidden;
-		&:hover {
-			border-color: #ecce40;
+	}
+
+	@media (max-width: 768px) {
+		.inner {
+			margin: -3px;
+		}
+		li {
+			padding: 3px;
+			width: 82px;
 		}
 	}
 `;
 
-const SLink = styled(Link)``;
+const SLink = styled(Link)`
+	border: 3px solid rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	transition: border 0.1s ease-in-out;
+	overflow: hidden;
+	&:hover {
+		border-color: #ecce40;
+	}
+`;
 
-const SubCoverList = ({ collection, tvId, seasons, isMovie }) => (<>
-		<Container className="sub-cover-list">
+const SubCoverList = ({ collection, tvId, seasons, isMovie }) => (
+	<Container>
+		<ul className="inner">
 			{ isMovie ? (
 				<li>
-				<SLink to={`/movie/collection/${collection.id}`}>
-					<Cover url={ collection.poster_path ? `https://image.tmdb.org/t/p/w342${collection.poster_path}` : require("../assets/noPoster_780.jpg") } alt={ collection.name } />
-				</SLink>
+					<SLink to={`/movie/collection/${collection.id}`}>
+						<Cover url={ collection.poster_path ? `https://image.tmdb.org/t/p/w342${collection.poster_path}` : require("../assets/noPoster_780.jpg") } alt={ collection.name } />
+					</SLink>
 				</li>
 			) : <>
 				{ seasons.map((season, index) => (
@@ -41,8 +56,8 @@ const SubCoverList = ({ collection, tvId, seasons, isMovie }) => (<>
 					</li>
 				)) }
 			</>}
-		</Container>
-	</>
+		</ul>
+	</Container>
 );
 
 SubCoverList.propTypes = {

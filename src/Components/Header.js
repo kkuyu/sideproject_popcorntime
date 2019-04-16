@@ -12,17 +12,38 @@ const Container = styled.header`
 		display: block;
 		clear: both;
 	}
+
+	@media (max-width: 1600px) {
+		padding: 35px 30px;
+	}
+
+	@media (max-width: 768px) {
+		padding: 25px 20px 35px 20px;
+	}
 `;
 
 const Logo = styled.h1`
 	float: left;
-	font-size: 20px;
+	font-size: 25px;
 	font-weight: 600;
+	a:hover i {
+		color: #ecce40;
+	}
+
+	@media (max-width: 1600px) {
+		font-size: 22px;
+	}
+
+	@media (max-width: 768px) {
+		font-size: 18px;
+	}
 `;
 
 const Gnb = styled.ul`
 	float: left;
+	margin-top: 2px;
 	margin-left: 86px;
+	font-size: 15px;
 	&:after {
 		content: "";
 		display: block;
@@ -36,7 +57,16 @@ const Gnb = styled.ul`
 	}
 	a {
 		padding: 4px 1px;
-		font-size: 15px;
+	}
+
+	@media (max-width: 768px) {
+		float: right;
+		margin-top: 0;
+		margin-left: 0;
+		font-size: 13px;
+		li + li {
+			margin-left: 20px;
+		}
 	}
 `;
 

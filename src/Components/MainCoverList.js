@@ -4,19 +4,48 @@ import { Link } from "react-router-dom";
 import styled from  "styled-components";
 import Cover from "Components/Cover";
 
-const Container = styled.ul`
-	& {
-		margin: -20px;
+const Container = styled.div`
+	.inner {
+		margin: -26px -20px;
 		&:after {
 			content: "";
 			display: block;
 			clear: both;
 		}
+	}
+	li {
+		float: left;
+		width: 10%;
+		padding: 26px 20px;
+		&:nth-child(10n+1) {
+			clear: both;
+		}
+	}
+
+	@media (max-width: 1600px) {
+		.inner {
+			margin: -15px -13px;
+		}
 		li {
-			float: left;
-			width: 10%;
-			padding: 26px 20px;
+			width: 16.6%;
+			padding: 15px 10px;
+			&:nth-child(6n+1) {
+				clear: both;
+			}
 			&:nth-child(10n+1) {
+				clear: none;
+			}
+		}
+	}
+
+	@media (max-width: 768px) {
+		.inner {
+			margin: -10px;
+		}
+		li {
+			width: 50%;
+			padding: 10px 10px;
+			&:nth-child(2n+1) {
 				clear: both;
 			}
 		}
@@ -26,7 +55,7 @@ const Container = styled.ul`
 const SLink = styled(Link)`
 	.thum {
 		position: relative;
-		border: 3px solid transparent;
+		border: 3px solid rgba(0, 0, 0, 0.25);
 		border-radius: 8px;
 		transition: border 0.1s ease-in-out;
 		overflow: hidden;
@@ -72,27 +101,47 @@ const SLink = styled(Link)`
 		word-wrap:normal;
 		overflow:hidden;
 	}
-	&:hover .thum {
-		border-color: #ecce40;
+	&:hover {
+		.thum {
+			border-color: #ecce40;
+		}
+		.name {
+			text-decoration: underline;
+		}
+	}
+
+	@media (max-width: 1600px) {
+		.year {
+			margin-top: 8px;
+		}
+		.name {
+			font-size: 16px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		
 	}
 `;
 
 const MainCoverList = ({ align, isMovie=false }) => (
-	<Container className="main-cover-list">
-		{ align.map((item, index) => ( 
-			<li key={index}>
-				<SLink to={ isMovie ? `/movie/${item.id}` : `/tv/${item.id}`}>
-					<div className="thum">
-						<Cover url={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : require("../assets/noPoster_780.jpg")} alt="" />
-						<em className="rating">{item.vote_average}</em>
-					</div>
-					<div className="info">
-						<span className="year">{isMovie ? item.release_date && item.release_date.substring(0,4) : item.first_air_date && item.first_air_date.substring(0,4) }</span>
-						<span className="name">{isMovie ? item.original_title : item.original_name}</span>
-					</div>
-				</SLink>
-			</li>
-		))}
+	<Container>
+		<ul className="inner">
+			{ align.map((item, index) => ( 
+				<li key={index}>
+					<SLink to={ isMovie ? `/movie/${item.id}` : `/tv/${item.id}`}>
+						<div className="thum">
+							<Cover url={item.poster_path ? `https://image.tmdb.org/t/p/w342${item.poster_path}` : require("../assets/noPoster_780.jpg")} alt="" />
+							<em className="rating">{item.vote_average}</em>
+						</div>
+						<div className="info">
+							<span className="year">{isMovie ? item.release_date && item.release_date.substring(0,4) : item.first_air_date && item.first_air_date.substring(0,4) }</span>
+							<span className="name">{isMovie ? item.original_title : item.original_name}</span>
+						</div>
+					</SLink>
+				</li>
+			))}
+		</ul>
 	</Container>
 )
 

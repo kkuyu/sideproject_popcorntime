@@ -16,6 +16,12 @@ const Container = styled.span`
 			color: #ecce40;
 		}
 	}
+
+	@media (max-width: 768px) {
+		.fa-star {
+			font-size: 12px;
+		}
+	}
 `;
 
 const Star = ({ average, averageFloor }) => (

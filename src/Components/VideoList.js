@@ -4,9 +4,17 @@ import styled from "styled-components";
 
 import Video from "Components/Video";
 
-const Container = styled.ul`
-	li + li {
-		margin-top: 20px;
+const Container = styled.div`
+	.inner {
+		margin: -10px;
+		li {
+			padding: 10px;
+		}
+		&:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
 	}
 	.name {
 		margin-top: 10px;
@@ -24,42 +32,56 @@ const Container = styled.ul`
 			color: #ff0000;
 		}
 	}
-	&.half {
-		margin-left: -10px;
-		margin-right: -10px;
+	&.full {
 		li {
 			float: left;
 			width: 50%;
-			padding: 0 10px;
-		}
-		li:nth-child(2) {
-			margin-top: 0;
 		}
 		li:nth-child(2n+1) {
 			clear: both;
 		}
-		&:after {
-			content: "";
-			display: block;
-			clear: both;
+	}
+
+	@media (max-width: 1600px) {
+		.inner {
+			overflow-x: scroll;
+			display: Block;
+			white-space: nowrap;
+			li {
+				float: none;
+				display: inline-block;
+				width: 600px;
+			}
+			.name {
+				text-overflow: ellipsis;
+				overflow: hidden;
+			}
+		}
+	}
+
+	@media (max-width: 768px) {
+		.inner li {
+			width: 320px;
 		}
 	}
 `;
 
-const VideoList = ({ videos, isToggleOn }) => (
-	<Container className={ isToggleOn ? "video-list" : "video-list half"}>
-		{videos.map((video, index) => ( index < ( isToggleOn ? 2 : videos.length ) && 
-			<li key={index}>
-				<Video url={video.key} title={video.name} />
-				<a className="name" href={`https://www.youtube.com/watch?v=${video.key}`} target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i>{video.name}</a>
-			</li>
-		))}
+const VideoList = ({ videos, isPrevVideo }) => (
+	<Container className={ !isPrevVideo && "full" }>
+		<ul className="inner">
+			{videos.map((video, index) => ( index < ( isPrevVideo ? 2 : videos.length ) && 
+				<li key={index}>
+					<Video url={video.key} title={video.name} />
+					<a className="name" href={`https://www.youtube.com/watch?v=${video.key}`} target="_blank" rel="noopener noreferrer"><i className="fab fa-youtube"></i>{video.name}</a>
+				</li>
+			))}
+		</ul>
 	</Container>
 );
 
 VideoList.propTypes = {
 	videos: PropTypes.array,
-	isToggleOn: PropTypes.bool
+	isPrevVideo: PropTypes.bool
 };
 
 export default VideoList;

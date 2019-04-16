@@ -12,27 +12,45 @@ export default class extends React.Component{
 			error: null,
 			loading: true,
 			isMovie: ( pathname.indexOf("/movie/") !== -1 ),
-			isToggleOn: true
+			isPrevVideo: window.innerWidth >= 1600,
+			isDesktop: window.innerWidth >= 1600
 		};
 		this.handleClick = this.handleClick.bind(this);
+		this.updatePredicate = this.updatePredicate.bind(this);
 	};
 
 	handleClick = (event) => {
 		event.preventDefault();
-		this.setState((prevState) => {
-			return {  isToggleOn: !prevState.isToggleOn }
-		}, this.bodyStyle());
+		this.setState(prevState => ({
+			isPrevVideo: !prevState.isPrevVideo
+		}), this.bodyStyle());
 	}
 
-	bodyStyle = () => {
-		if(this.state.isToggleOn){
-			document.body.style.overflow = "hidden";
-		}else{
-			document.body.style.overflow = "visible";
+	updatePredicate() {
+		if(this.state.isDesktop && window.innerWidth < 1600){
+			this.setState({ isDesktop: false, isPrevVideo: false });
+			document.body.removeAttribute("style")
+		}
+		if(!this.state.isDesktop && window.innerWidth >= 1600){
+			this.setState({ isDesktop: true , isPrevVideo: true });
 		}
 	}
 
+	bodyStyle = () => {
+		if(this.state.isPrevVideo){
+			document.body.style.overflow = "hidden";
+		}else{
+			document.body.removeAttribute("style")
+		}
+	}
+
+	componentWillUnmount() {
+	  window.removeEventListener("resize", this.updatePredicate);
+	}
+
 	async componentDidMount(){
+		window.addEventListener("resize", this.updatePredicate);
+		this.updatePredicate();
 		const {
 			match: { params: { id } },
 			history: { push }
@@ -61,7 +79,7 @@ export default class extends React.Component{
 	}
 
 	render() {
-		const { result, review, loading, isMovie, isToggleOn, error } = this.state;
+		const { result, review, loading, isMovie, isPrevVideo, isDesktop, error } = this.state;
 		console.log(this.state)
 		return <DetailPresenter
 			result={ result }
@@ -69,7 +87,8 @@ export default class extends React.Component{
 			loading={ loading }
 			isMovie={ isMovie }
 			handleClick={ this.handleClick }
-			isToggleOn={ isToggleOn }
+			isPrevVideo={ isPrevVideo }
+			isDesktop={ isDesktop }
 			error={ error }
 		/>
 	}
